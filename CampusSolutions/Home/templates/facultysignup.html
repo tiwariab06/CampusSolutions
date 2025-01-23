@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Faculty Signup</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        color: #ffffff;
+      }
+      .card {
+        background-color: #1f2937;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      }
+      .form-label {
+        color: #d1d5db;
+      }
+      .form-control,
+      .form-select {
+        background-color: #ffff;
+        color: #000;
+        border: 1px solid #4a5568;
+      }
+      .form-control:focus,
+      .form-select:focus {
+        box-shadow: none;
+        border-color: #6366f1;
+      }
+      .btn-primary {
+        background-color: #6366f1;
+        border: none;
+      }
+      .btn-primary:hover {
+        background-color: #4f46e5;
+      }
+      .card-title {
+        color: #ffffff;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container my-5">
+      <div class="card shadow-lg mx-auto" style="width: 60rem; padding: 2rem">
+        <h3 class="card-title text-center mb-4">Faculty Signup</h3>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <!-- Left Column -->
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                {{ form.name }}
+              </div>
+              <div class="mb-3">
+                <label for="username" class="form-label">Username/Email</label>
+                {{ form.username }}
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                {{ form.password }}
+              </div>
+              <div class="mb-3">
+                <label for="year" class="form-label">Year</label>
+                {{ form.year }}
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="department" class="form-label">Department</label>
+                {{ form.department }}
+              </div>
+              <div class="mb-3">
+                <label for="section" class="form-label">Section</label>
+                {{ form.section }}
+              </div>
+              <div class="mb-3">
+                <label for="subjects" class="form-label">Subjects</label>
+                {{ form.subjects }}
+              </div>
+            </div>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary mt-4">Sign Up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

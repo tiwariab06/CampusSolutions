@@ -1,0 +1,145 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1c1c1c;
+}
+
+nav {
+  background-color: #1c1c1c;
+  color: white;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav .logo {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 20px;
+  color: #ffff;
+  transition: color 0.3s;
+}
+
+nav .logo:hover {
+  color: #ffffff;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-right: 20px;
+  position: relative;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #575757;
+  transform: scale(1.1);
+}
+
+nav ul li.dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #1c1c1c;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+  transition: opacity 0.3s, visibility 0.3s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+nav ul li.dropdown .dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+nav ul li.dropdown .dropdown-content a:hover {
+  background-color: #575757;
+  transform: scale(1.1);
+}
+
+nav ul li.dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+header {
+  text-align: center;
+  padding: 100px 20px;
+  background: linear-gradient(135deg, #1c1c1c, #333);
+  color: white;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 48px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+header p {
+  font-size: 20px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.intro {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+.features,
+.why-choose,
+.join-us {
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+section h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+section p,
+section ul {
+  font-size: 18px;
+  color: #666;
+}
+
+section ul {
+  list-style: none;
+  padding: 0;
+}

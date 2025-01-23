@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Error</title>
+</head>
+<body>
+    <h1>Signup Page</h1>
+
+    <!-- Display errors if any -->
+    {% if errors %}
+        <div style="color: red;">
+            <h3>Errors:</h3>
+            <ul>
+                {% for field, error_list in errors.items %}
+                    {% for error in error_list %}
+                        <li><strong>{{ field|capfirst }}:</strong> {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- Signup link -->
+    <a href="/student/signup/" style="color: blue; text-decoration: underline;">Try Signing Up Again</a>
+</body>
+</html>
