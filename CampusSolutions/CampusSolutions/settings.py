@@ -79,6 +79,9 @@ DATABASES = {
     "default": {
         "ENGINE": "djongo",
         "NAME": "CampusSolutions",
+         'CLIENT': {
+            'host': 'mongodb+srv://tiwariab06:Anshu2003%40@cluster0.9vaobop.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+        }
     }
 }
 
