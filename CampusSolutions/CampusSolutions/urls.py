@@ -25,4 +25,8 @@ urlpatterns = [
     path("", include("Home.urls")),
     path("student/", include("Home.urls")),
     # path('faculty/',include('Home.urls')),
+    path("login/faculty/", include("FacultyUploads.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
