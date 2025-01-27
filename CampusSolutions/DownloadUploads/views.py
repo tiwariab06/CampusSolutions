@@ -2,9 +2,12 @@ from django.shortcuts import render, redirect, HttpResponse
 from FacultyUploads.models import Pyq
 import os
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required
+from Home.views import *
 
 
 # Display Pyq's.
+@login_required(login_url="/student/login/")
 def showPyq(request):
 
     if request.method == "POST":
@@ -21,6 +24,7 @@ def showPyq(request):
 # download Pyq's.
 
 
+@login_required(login_url="/student/login/")
 def downloadPyq(request, id):
     pyq = get_object_or_404(Pyq, id=id)
     file_path = pyq.url.path  # Get the file path as a string
