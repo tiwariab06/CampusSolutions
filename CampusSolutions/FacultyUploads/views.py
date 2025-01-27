@@ -14,16 +14,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Upload Pyqs
 
-
 def UploadPyq(request):
-
     if request.method == "POST":
         form = PyqForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return render(request, "uploadPyq.html", {"form": form})
+            messages.success(request, "Pyq uploaded successfully!")
+            return redirect("/upload/Pyq")  # Replace with the actual URL name
         else:
-            return HttpResponse("Please enter correct Data")
+            messages.error(request, "Please enter correct data.")
     else:
         form = PyqForm()
-        return render(request, "uploadPyq.html", {"form": form})
+
+    return render(request, "uploadPyq.html", {"form": form})
