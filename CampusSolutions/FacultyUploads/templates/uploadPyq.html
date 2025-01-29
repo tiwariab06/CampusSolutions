@@ -26,7 +26,7 @@
         border-radius: 20px;
         box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
         padding: 40px;
-        max-width: 850px;
+        max-width: 650px;
         width: 100%;
         margin: auto;
         transition: transform 0.3s ease-in-out;
@@ -56,14 +56,9 @@
         color: #555555;
         font-weight: bold;
       }
-      .mb-4 {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      #file {
-        gap: 50px;
-        margin-left: 98px;
+
+      .mb-3 {
+        margin-bottom: 20px;
       }
 
       footer {
@@ -95,32 +90,46 @@
         {% endfor %}
       </div>
       {% endif %}
+
       <h2>Upload Previous Year Questions</h2>
       <p class="text-center text-muted mb-4">
         Upload files like question papers, notes, and other academic resources.
       </p>
+
       <form action="#" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <div class="mb-4" id="file">
-          <label for="id_url" class="form-label">File </label>
-          {{ form.url }}
-        </div>
-        <div class="mb-4">
-          <label for="id_name" class="form-label"
-            >Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label
+
+        <div class="mb-3 row">
+          <label for="id_url" class="col-md-4 col-form-label text-end"
+            >File:</label
           >
-          {{ form.name }}
+          <div class="col-md-8">{{ form.url }}</div>
         </div>
-        <div class="mb-4">
-          <label for="id_semester" class="form-label">Semester&nbsp;</label>
-          {{ form.semester }}
-        </div>
-        <div class="mb-4">
-          <label for="id_session" class="form-label"
-            >Session&nbsp;&nbsp;&nbsp;</label
+
+        <div class="mb-3 row">
+          <label for="id_name" class="col-md-4 col-form-label text-end"
+            >Name:</label
           >
-          {{ form.session }}
+          <div class="col-md-8">{{ form.name }}</div>
         </div>
+
+        <div class="mb-3 row">
+          <label for="id_semester" class="col-md-4 col-form-label text-end"
+            >Semester:</label
+          >
+          <div class="col-md-8">{{ form.semester }}</div>
+        </div>
+
+        <div class="mb-3 row">
+          <label
+            for="id_session"
+            class="col-md-4 col-form-label text-end"
+            placeholder="Please enter in 20XX-20XX Format Only"
+            >Session:</label
+          >
+          <div class="col-md-8">{{ form.session }}</div>
+        </div>
+
         <button type="submit" class="btn btn-primary w-100">Upload</button>
       </form>
     </div>
