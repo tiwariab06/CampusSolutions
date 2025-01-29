@@ -15,7 +15,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Upload Pyqs
 
 
-@login_required()
+@login_required(login_url="/login/faculty/")
 def UploadPyq(request):
     if request.method == "POST":
         form = PyqForm(request.POST, request.FILES)
@@ -34,7 +34,7 @@ def UploadPyq(request):
 # view for uploading Notes
 
 
-@login_required
+@login_required(login_url="/login/faculty/")
 def uploadNotes(request):
     if request.method == "POST":
         form = notesForm(request.POST, request.FILES)
