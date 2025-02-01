@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: django-app
+    runtime: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn CampusSolutions.wsgi:application"
+    envVars:
+      - key: DATABASE_URL
+        value: "mongodb+srv://tiwariab06:Anshu2003%40@cluster0.9vaobop.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+        generateValue: true
