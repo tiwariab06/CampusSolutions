@@ -29,13 +29,12 @@
         width: 100%;
         margin: auto;
         transition: transform 0.3s ease-in-out;
-        /* display: flex;
-        justify-content: center; */
       }
 
       .main-card:hover {
         transform: translateY(-5px);
       }
+
       h2 {
         color: #155bc4;
         font-weight: bold;
@@ -52,16 +51,12 @@
         background-color: #0056b3;
       }
 
-      .form-label {
-        color: #555555;
-        font-weight: bold;
+      .form-container {
+        width: 100%;
       }
 
-      .mb-3 {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
+      .form-container p {
+        margin-bottom: 15px;
       }
 
       footer {
@@ -76,11 +71,9 @@
   <body>
     <div class="main-card">
       <h2>Upload Notes</h2>
-      <div class="mb-3">
+      <div class="form-container">
         <form action="#" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-           {{ form.as_p }}
-          <!-- This ensures fields are displayed -->
+          {% csrf_token %} {{ form.as_p }}
           <button type="submit" class="btn btn-primary w-100">Submit</button>
         </form>
       </div>

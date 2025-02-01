@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-srl#vjlnw@ub2f+=j*e4&!^f0)zug)!!k6_glhsl=qikt=(3ou"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "campussolutions.onrender.com",
@@ -86,9 +86,9 @@ DATABASES = {
     "default": {
         "ENGINE": "djongo",
         "NAME": "CampusSolutions",
-         'CLIENT': {
-            'host': 'mongodb+srv://tiwariab06:Anshu2003%40@cluster0.9vaobop.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
-        }
+        # "CLIENT": {
+        #     "host": "mongodb+srv://tiwariab06:Anshu2003%40@cluster0.9vaobop.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+        # },
     }
 }
 

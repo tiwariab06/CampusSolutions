@@ -48,4 +48,23 @@ def uploadNotes(request):
     else:
         form = notesForm()
 
-    return render(request, "uploadNotes.html", {"form": form})
+    return render(request, "uploadData.html", {"form": form})
+
+
+# view for uploading Assignments
+
+
+@login_required(login_url="/login.faculty")
+def uploadAssignmnets(request):
+    if request.method == "POST":
+
+        form = assignmentForm(request.POST, request.FILES, request=request)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Assignment Uploaded Sucessfully")
+            return redirect("/upload/Assignments")
+        else:
+            messages.error(request, "Please reverify the Data")
+    else:
+        form = assignmentForm(request=request)
+    return render(request, "uploadData.html", {"form": form})

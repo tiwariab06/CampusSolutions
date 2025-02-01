@@ -59,7 +59,7 @@ def studentlogin(request):
 
         if user and not user.is_staff:  # Verify user is not staff
             login(request, user)
-            return render(request, "studentDashboard.html")
+            return render(request, "Dashboard.html")
         else:
             messages.error(request, "Invalid Username or Password")
             return render(request, "studentlogin.html")
@@ -109,7 +109,7 @@ def facultylogin(request):
 
         if user and user.is_staff:  # Verify user is staff
             login(request, user)
-            return render(request, "home.html")
+            return render(request, "Dashboard.html")
         else:
             messages.error(request, "Invalid Username or Password")
             return render(request, "facultylogin.html")

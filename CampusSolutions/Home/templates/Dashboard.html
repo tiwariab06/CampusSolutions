@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Student Dashboard</title>
+    <title>Dashboard</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -115,7 +115,77 @@
     <!-- Main Content -->
     <div class="container mt-5">
       <div class="row g-4">
-        <!-- Sell Notes Card -->
+        {% if user.is_staff %}
+        <!-- Staff Cards -->
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Upload PYQs</h5>
+              <p class="card-text">
+                Upload previous year question papers for students to access.
+              </p>
+              <a href="/upload/Pyq" class="btn btn-primary">Upload PYQs</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Upload Notes</h5>
+              <p class="card-text">
+                Upload your notes for students to purchase.
+              </p>
+              <a href="/upload/Notes" class="btn btn-primary">Upload Notes</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Upload Assignments</h5>
+              <p class="card-text">
+                Upload assignments for students to complete and submit.
+              </p>
+              <a href="/upload/Assignments" class="btn btn-primary"
+                >Upload Assignments</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Mark Attendance</h5>
+              <p class="card-text">Mark attendance for your classes.</p>
+              <a href="/mark_attendance" class="btn btn-primary"
+                >Mark Attendance</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">View Submitted Assignments</h5>
+              <p class="card-text">View assignments submitted by students.</p>
+              <a href="/view_submitted_assignments" class="btn btn-primary"
+                >View Assignments</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Future Use Cards for staff -->
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Future Feature 1</h5>
+              <p class="card-text">Placeholder for upcoming functionality.</p>
+              <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <!-- Student Cards (Existing Template) -->
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
@@ -127,7 +197,6 @@
             </div>
           </div>
         </div>
-        <!-- PYQ Card -->
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
@@ -137,7 +206,6 @@
             </div>
           </div>
         </div>
-        <!-- Buy Notes Card -->
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
@@ -149,7 +217,6 @@
             </div>
           </div>
         </div>
-        <!-- View Attendance Card -->
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
@@ -163,7 +230,6 @@
             </div>
           </div>
         </div>
-        <!-- View Assignments Card -->
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
@@ -175,7 +241,6 @@
             </div>
           </div>
         </div>
-        <!-- View Results Card -->
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
@@ -187,26 +252,7 @@
             </div>
           </div>
         </div>
-        <!-- Future Use Card 1 -->
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Future Feature 1</h5>
-              <p class="card-text">Placeholder for upcoming functionality.</p>
-              <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
-            </div>
-          </div>
-        </div>
-        <!-- Future Use Card 2 -->
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Future Feature 2</h5>
-              <p class="card-text">Placeholder for upcoming functionality.</p>
-              <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
-            </div>
-          </div>
-        </div>
+        {% endif %}
       </div>
     </div>
 
