@@ -2,7 +2,10 @@ services:
   - type: web
     name: django-app
     runtime: python
-    buildCommand: "pip install -r requirements.txt"
+     buildCommand: |
+      pip install -r requirements.txt
+      python manage.py makemigrations
+      python manage.py migrate  # Apply migrations at build time
     startCommand: "gunicorn CampusSolutions.wsgi:application"
     envVars:
       - key: DATABASE_URL
