@@ -62,7 +62,7 @@ def studentlogin(request):
             return render(request, "Dashboard.html")
         else:
             messages.error(request, "Invalid Username or Password")
-            return render(request, "studentlogin.html")
+            return redirect("/student/login")
     else:
         return render(request, "studentlogin.html")
 
@@ -112,7 +112,7 @@ def facultylogin(request):
             return render(request, "Dashboard.html")
         else:
             messages.error(request, "Invalid Username or Password")
-            return render(request, "facultylogin.html")
+            return redirect("/login/faculty")
     else:
         return render(request, "facultylogin.html")
 
