@@ -59,6 +59,10 @@ class Assignments(models.Model):
             "Electronics and Communication Engineering",
             "Electronics and Communication Engineering",
         ),
+        (
+            "Mechanical Engineering",
+            "Mechanical Engineering",
+        ),
     ]
     subject = models.CharField(max_length=50)
     assignment_number = models.IntegerField()
