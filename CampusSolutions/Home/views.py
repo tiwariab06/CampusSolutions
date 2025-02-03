@@ -64,7 +64,7 @@ def studentlogin(request):
             messages.error(request, "Invalid Username or Password")
             return redirect("/student/login")
     else:
-        return render(request, "studentlogin.html")
+        return render(request, "login.html")
 
 
 # Faculty Signup View
