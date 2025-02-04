@@ -12,6 +12,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# load the dotenv
+load_dotenv()
+
+# Get API key securely
+LLAMA_API_KEY = os.getenv("API_KEY")
+MONGO_URL = os.getenv("URL")
+print(MONGO_URL)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +56,7 @@ INSTALLED_APPS = [
     "Home",
     "FacultyUploads",
     "DownloadUploads",
+    "Chatbot",
 ]
 
 MIDDLEWARE = [
@@ -86,9 +97,7 @@ DATABASES = {
     "default": {
         "ENGINE": "djongo",
         "NAME": "CampusSolutions",
-        "CLIENT": {
-            "host": "mongodb+srv://tiwariab06:Anshu2003%40@cluster0.9vaobop.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-        },
+        "CLIENT": {"host": MONGO_URL},
     }
 }
 
