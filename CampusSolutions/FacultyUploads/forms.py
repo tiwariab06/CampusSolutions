@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+from Home.models import subjects
 
 
 class PyqForm(forms.ModelForm):
@@ -32,7 +33,7 @@ class notesForm(forms.ModelForm):
         label="Semester",
         widget=forms.Select(attrs={"class": "col-md-6"}),
     )
-
+    sub_name=forms.ModelChoiceField(queryset=subjects.objects.filter())
     class Meta:
         model = Notes
         fields = ["path", "sub_name", "semester", "type"]

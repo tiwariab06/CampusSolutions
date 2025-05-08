@@ -29,6 +29,10 @@ urlpatterns = [
     path("login/faculty/", include("FacultyUploads.urls")),
     path("", include("DownloadUploads.urls")),
     path("", include("Chatbot.urls")),
+    path("messaging/", include("ChatApp.urls")),
+    path("studybuddy/", include("StudyBuddy.urls")),
+    path("", include("Marketplace.urls")),
+    path("", include("Results.urls")),
 ]
 
 if settings.DEBUG:

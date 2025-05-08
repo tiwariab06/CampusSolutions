@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Select Section</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="p-4">
+    <div class="container">
+      <h2 class="mb-4">Select Section to Upload Results</h2>
+      <div class="list-group">
+        {% for section in sections %}
+        <a
+          href="{% url 'student_list' section.id %}"
+          class="list-group-item list-group-item-action"
+        >
+          {{ section.section }}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

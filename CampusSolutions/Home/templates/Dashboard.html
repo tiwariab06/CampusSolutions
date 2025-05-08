@@ -84,6 +84,13 @@
             <span class="navbar-text welcome-text">
               Hi {{ user.name }}, Welcome to Your Dashboard!
             </span>
+            <li class="nav-item">
+              <a class="nav-link" href="/messenger/">
+                Messages {% if unread_message_count > 0 %}
+                <span class="badge bg-danger">{{ unread_message_count }}</span>
+                {% endif %}
+              </a>
+            </li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -155,6 +162,17 @@
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
+              <h5 class="card-title">Upload Results</h5>
+              <p class="card-text">Upload Results for students.</p>
+              <a href="/upload-results/" class="btn btn-primary"
+                >Upload Result</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
               <h5 class="card-title">Mark Attendance</h5>
               <p class="card-text">Mark attendance for your classes.</p>
               <a href="/mark_attendance" class="btn btn-primary"
@@ -166,21 +184,33 @@
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
+              <h5 class="card-title">Manage and Edit Attendance</h5>
+              <p class="card-text">Edit attendance for your classes.</p>
+              <a href="{% url 'edit_attendance' %}" class="btn btn-warning"
+                >Edit Attendance</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
               <h5 class="card-title">View Submitted Assignments</h5>
               <p class="card-text">View assignments submitted by students.</p>
-              <a href="/view_submitted_assignments" class="btn btn-primary"
+              <a href="/submissions" class="btn btn-primary"
                 >View Assignments</a
               >
             </div>
           </div>
         </div>
-        <!-- Future Use Cards for staff -->
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
-              <h5 class="card-title">Future Feature 1</h5>
-              <p class="card-text">Placeholder for upcoming functionality.</p>
-              <a href="#" class="btn btn-secondary disabled">Coming Soon</a>
+              <h5 class="card-title">Messenger</h5>
+              <p class="card-text">Message students in your sections.</p>
+              <a href="/messaging/students" class="btn btn-primary"
+                >Go to Messenger</a
+              >
             </div>
           </div>
         </div>
@@ -193,7 +223,9 @@
               <p class="card-text">
                 Share your notes and earn by selling them.
               </p>
-              <a href="/sell" class="btn btn-primary">Go to Sell Notes</a>
+              <a href="/resources/upload" class="btn btn-primary"
+                >Go to Sell Notes</a
+              >
             </div>
           </div>
         </div>
@@ -209,11 +241,24 @@
         <div class="col-md-4">
           <div class="card text-center">
             <div class="card-body">
+              <h5 class="card-title">Download Notes</h5>
+              <p class="card-text">
+                Access Notes and resources provided by your Faculty.
+              </p>
+              <a href="{% url 'showNotes'%}" class="btn btn-primary"
+                >View Notes</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
               <h5 class="card-title">Buy Notes</h5>
               <p class="card-text">
                 Purchase notes and study materials from peers.
               </p>
-              <a href="/buy/getdata" class="btn btn-primary">Buy Notes</a>
+              <a href="/resources/" class="btn btn-primary">Buy Notes</a>
             </div>
           </div>
         </div>
@@ -235,7 +280,7 @@
             <div class="card-body">
               <h5 class="card-title">View Assignments</h5>
               <p class="card-text">View and submit your assignments on time.</p>
-              <a href="/assignments" class="btn btn-primary"
+              <a href="{% url 'showAssignment'%}" class="btn btn-primary"
                 >View Assignments</a
               >
             </div>
@@ -258,6 +303,26 @@
               <h5 class="card-title">ByteBanter</h5>
               <p class="card-text">Ask the AI</p>
               <a href="/chatbot" class="btn btn-primary">Ask Anything</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Messenger</h5>
+              <p class="card-text">Message your assigned faculty members.</p>
+              <a href="/messaging/faculties" class="btn btn-primary"
+                >Go to Messenger</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">StudyBuddy</h5>
+              <p class="card-text">Join the Study Rooms for clearing Doubts.</p>
+              <a href="/studybuddy/home" class="btn btn-primary">StudyBuddy</a>
             </div>
           </div>
         </div>

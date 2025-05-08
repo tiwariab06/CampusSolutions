@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Show Assignments</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f4f9fc;
+      font-family: "Arial", sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #155bc4;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-success:hover {
+      background-color: #218838;
+    }
+
+    .no-assignments {
+      text-align: center;
+      color: #888;
+      font-size: 1.2rem;
+      margin-top: 50px;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #777777;
+      font-size: 0.9rem;
+    }
+
+    .toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1055;
+    }
+  </style>
+</head>
+<body>
+  <h1>Assignments</h1>
+
+  <form method="POST" class="text-center mb-4">
+    {% csrf_token %}
+    <div class="select-container">
+      <label for="subject" class="form-label fw-bold">Select Subject:</label>
+      <select name="subject" id="subject" class="form-select mb-3" required>
+        <option value="" disabled selected>-- Choose a Subject --</option>
+        {% for subj in subjects %}
+          <option value="{{ subj }}" {% if selected_subject == subj %}selected{% endif %}>{{ subj }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="btn btn-primary">Show Assignments</button>
+    </div>
+  </form>
+
+  <div class="container">
+    {% if assignments %}
+    <div class="row g-4">
+      {% for a in assignments %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-header">
+            {{ a.subject }} - Assignment {{ a.assignment_number }}
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              {{ a.description|linebreaksbr }}<br />
+              <strong>Deadline:</strong> {{ a.submission_deadline }}
+            </p>
+            <a href="{% url 'downloadAssignment' a.id %}" class="btn btn-primary w-100 mb-2">Download</a>
+            <button class="btn btn-success w-100"
+              data-bs-toggle="modal"
+              data-bs-target="#submitModal"
+              data-id="{{ a.id }}"
+              data-subject="{{ a.subject }}"
+              data-number="{{ a.assignment_number }}"
+              data-section="{{ a.section }}"
+              data-deadline="{{ a.submission_deadline }}">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-assignments">🎉 There are no pending assignments.</p>
+    {% endif %}
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="submitModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form method="POST" action="{% url 'submitAssignment' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="submitModalLabel">Submit Assignment</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="assignment_id" id="modalAssignmentId">
+            <div class="mb-3">
+              <label class="form-label">Subject</label>
+              <input type="text" name="subject" class="form-control" id="modalSubject" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Assignment Number</label>
+              <input type="number" name="assignment_number" class="form-control" id="modalAssignmentNumber" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Section</label>
+              <input type="text" name="section" class="form-control" id="modalSection" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Deadline</label>
+              <input type="text" name="submission_deadline" class="form-control" id="modalDeadline" readonly>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Upload File</label>
+              <input type="file" name="path" class="form-control" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  {% if submitted %}
+  <div class="toast-container">
+    <div class="toast align-items-center text-bg-success border-0 show" role="alert">
+      <div class="d-flex">
+        <div class="toast-body">
+          ✅ Assignment submitted successfully!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const submitModal = document.getElementById('submitModal');
+    submitModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+
+      document.getElementById('modalAssignmentId').value = button.getAttribute('data-id');
+      document.getElementById('modalSubject').value = button.getAttribute('data-subject');
+      document.getElementById('modalAssignmentNumber').value = button.getAttribute('data-number');
+      document.getElementById('modalSection').value = button.getAttribute('data-section');
+      document.getElementById('modalDeadline').value = button.getAttribute('data-deadline');
+    });
+  </script>
+
+  <footer>
+    &copy; {{ current_year }} Campus Solutions. All rights reserved.
+  </footer>
+</body>
+</html>

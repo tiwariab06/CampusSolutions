@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Attendance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body class="p-4">
+    <div class="container">
+       
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="section" value="{{ section.id }}">
+            <input type="hidden" name="subject" value="{{ subject.id }}">
+            <input type="hidden" name="date" value="{{ date }}">
+            <input type="hidden" name="save_changes" value="1">
+
+            <table class="table table-bordered mt-4">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Roll Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in attendance_records %}
+                    <tr>
+                        <td>{{ record.student.name }}</td>
+                        <td>{{ record.student.roll_number }}</td>
+                        <td>
+                            <input type="hidden" name="student_ids" value="{{ record.student.id }}">
+                            <input type="checkbox" name="attendance_{{ record.student.id }}" {% if record.status == "Present" %}checked{% endif %}>
+                            Present
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-success">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>

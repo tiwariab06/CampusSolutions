@@ -26,8 +26,18 @@ class Students(AbstractUser):
     name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     roll_number = models.CharField(max_length=50, unique=True)
-    year = models.IntegerField()
-    branch = models.CharField(max_length=100)
+    SEMESTER_CHOICES = [(i, f"Semester {i}") for i in range(1, 9)]
+    semester = models.IntegerField(choices=SEMESTER_CHOICES)
+
+    BRANCH_CHOICES = [
+    ('CSE', 'Computer Science'),
+    ('ECE', 'Electronics and Communication'),
+    ('ME', 'Mechanical Engineering'),
+    ('CE', 'Civil Engineering'),
+    ('EE', 'Electrical Engineering'),
+    # Add more branches as needed
+]
+    branch = models.CharField(max_length=100, choices=BRANCH_CHOICES)
     section = models.CharField(max_length=20)
 
     groups = models.ManyToManyField(
@@ -42,6 +52,14 @@ class Students(AbstractUser):
         blank=True,
         help_text="Specific permissions for this student.",
     )
+    @property
+    def sections(self):
+        """Return the sections this student belongs to as a queryset"""
+        return sections.objects.filter(section=self.section)
+    
+    def get_assigned_faculties(self):
+        """Get faculties assigned to the student's sections"""
+        return Faculties.objects.filter(section__section=self.section).distinct()
 
     def __str__(self):
         return self.username

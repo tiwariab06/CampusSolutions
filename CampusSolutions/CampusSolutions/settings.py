@@ -34,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-srl#vjlnw@ub2f+=j*e4&!^f0)zug)!!k6_glhsl=qikt=(3ou"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "campussolutions.onrender.com",
@@ -57,6 +57,10 @@ INSTALLED_APPS = [
     "FacultyUploads",
     "DownloadUploads",
     "Chatbot",
+    "ChatApp",
+    "StudyBuddy",
+    "Marketplace",
+    "Results",
 ]
 
 MIDDLEWARE = [
@@ -86,7 +90,7 @@ TEMPLATES = [
         },
     },
 ]
-
+ASGI_APPLICATION = "CampusSolutions.asgi.application"
 WSGI_APPLICATION = "CampusSolutions.wsgi.application"
 
 
@@ -97,9 +101,18 @@ DATABASES = {
     "default": {
         "ENGINE": "djongo",
         "NAME": "CampusSolutions",
-        "CLIENT": {"host": MONGO_URL},
-    }
+        "ENFORCE_SCHEMA": False,
+        "CLIENT": {
+            "host": "mongodb://localhost:27017",
+        },
+    },
+    "messaging": {  # <-- New database for messaging app
+        "ENGINE": "django.db.backends.sqlite3",  # Or use PostgreSQL if you prefer
+        "NAME": BASE_DIR / "messaging_db.sqlite3",  # SQLite file will be created
+    },
 }
+
+DATABASE_ROUTERS = ["CampusSolutions.db_router.MessagingRouter"]
 
 
 # Password validation
@@ -161,3 +174,31 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SESSION_ENGINE = "django.contrib.sessions.backends.file"
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 3600
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+# settings.py
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+    }
+}
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# For development: shows email in console
+
+# For production (use real credentials):
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "abhinavtiwari473@gmail.com"
+EMAIL_HOST_PASSWORD = "Anshu2003@#$"

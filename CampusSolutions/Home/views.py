@@ -10,6 +10,7 @@ from django.db.models import Count
 from django.db.utils import DatabaseError
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
+from dateutil import parser
 
 
 # Home Page View
@@ -374,3 +375,114 @@ def filter_attendance_by_date(request):
 
     # GET request - render the form template
     return render(request, "Attendance.html", {"attendances": None})
+
+
+from datetime import timedelta, date
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
+from django.contrib import messages
+from django.utils.timezone import now
+from datetime import datetime
+from .models import Attendance, Students, subjects, sections  # adjust import as needed
+
+
+@never_cache
+@login_required(login_url="/login/faculty/")
+def edit_attendance(request):
+    if request.method == "POST":
+        section_id = request.POST.get("section")
+        subject_id = request.POST.get("subject")
+        date_str = request.POST.get("date")
+        print(date_str)
+
+        try:
+            sec = sections.objects.get(id=section_id)
+            subject = subjects.objects.get(id=subject_id)
+        except (sections.DoesNotExist, subjects.DoesNotExist):
+            return render(
+                request, "error.html", {"message": "Invalid section or subject."}
+            )
+
+        faculty = request.user
+        if sec not in faculty.section.all() or subject not in faculty.subjects.all():
+            return render(
+                request,
+                "error.html",
+                {"message": "Unauthorized access to section or subject."},
+            )
+
+        if not date_str:
+            return render(request, "error.html", {"message": "Please select a date."})
+
+        try:
+            selected_date = parser.parse(date_str).date()
+        except (ValueError, TypeError):
+            return render(
+                request,
+                "error.html",
+                {
+                    "message": f"Invalid date format: '{date_str}'. Please enter a valid date."
+                },
+            )
+
+        if (now().date() - selected_date).days > 3:
+            return render(
+                request,
+                "error.html",
+                {"message": "Editing allowed only within 3 days of marking."},
+            )
+
+        if "save_changes" in request.POST:
+            for student_id in request.POST.getlist("student_ids"):
+                try:
+                    student = Students.objects.get(id=student_id)
+                    attendance = Attendance.objects.get(
+                        student_id=student,
+                        section_id=sec,
+                        subject_id=subject,
+                        date=selected_date,
+                    )
+                    status = (
+                        "Present"
+                        if f"attendance_{student_id}" in request.POST
+                        else "Absent"
+                    )
+                    attendance.status = status
+                    attendance.save()
+                except Attendance.DoesNotExist:
+                    continue
+            messages.success(request, "Attendance updated successfully.")
+            return redirect(
+                "edit_attendance"
+            )  # Update to the correct name of your URL pattern
+
+        attendance_records = Attendance.objects.filter(
+            section_id=sec, subject_id=subject, date=selected_date
+        ).select_related("student")
+
+        return render(
+            request,
+            "edit_attendance.html",
+            {
+                "attendance_records": attendance_records,
+                "section": sec,
+                "subject": subject,
+                "date": selected_date,
+            },
+        )
+
+    # GET request: Show section and subject selection form
+    faculty = request.user
+    assigned_sections = faculty.section.all()
+    assigned_subjects = faculty.subjects.all()
+    return render(
+        request,
+        "choose_edit_attendance.html",
+        {
+            "sections": assigned_sections,
+            "subjects": assigned_subjects,
+        },
+    )

@@ -33,7 +33,7 @@ class Notes(models.Model):
 
     type_choices = [("Printed", "Printed"), ("HandWritten", "HandWritten")]
     path = models.FileField(upload_to="uploads/Notes")
-    sub_name = models.CharField(max_length=25)
+    sub_name = models.TextField()
     semester = models.IntegerField(choices=Semester.choices)
     type = models.CharField(max_length=25, choices=type_choices)
 

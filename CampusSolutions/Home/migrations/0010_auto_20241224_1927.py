@@ -2,24 +2,28 @@
 
 import datetime
 from django.db import migrations, models
-from django.utils.timezone import utc
+
+
+utc = datetime.timezone.utc
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Home', '0009_auto_20241223_0103'),
+        ("Home", "0009_auto_20241223_0103"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='attendance',
-            name='date',
-            field=models.DateField(default=datetime.datetime(2024, 12, 24, 13, 57, 58, 74262, tzinfo=utc)),
+            model_name="attendance",
+            name="date",
+            field=models.DateField(
+                default=datetime.datetime(2024, 12, 24, 13, 57, 58, 74262, tzinfo=utc)
+            ),
         ),
         migrations.AlterField(
-            model_name='attendance',
-            name='status',
+            model_name="attendance",
+            name="status",
             field=models.CharField(max_length=50),
         ),
         # migrations.AlterField(

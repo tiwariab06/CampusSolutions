@@ -73,7 +73,7 @@
     <h1>Previous Year Questions</h1>
 
     <!-- Semester Selection Form -->
-    <form method="POST" action="{%url 'showPyq'  %}" class="text-center mb-4">
+    <form method="POST" action="#" class="text-center mb-4">
       {% csrf_token %}
       <div class="select-container">
         <label for="semester" class="form-label fw-bold"
@@ -89,7 +89,7 @@
           <option value="7">Semester 7</option>
           <option value="8">Semester 8</option>
         </select>
-
+        {% if isPyq%}
         <label for="session" class="form-label fw-bold">Select Session:</label>
         <select name="session" id="semester" class="form-select mb-3">
           <option value="2020-2021">2020-2021</option>
@@ -98,26 +98,34 @@
           <option value="2023-2024">2023-2024</option>
           <option value="2024-2025">2024-2025</option>
         </select>
+        {%endif%} {% if isNotes %}
+        <label for="subject" class="form-label fw-bold">Select Subject:</label>
+        <select name="subject" id="subject" class="form-select mb-3">
+          {% for s in subjects %}
+          <option value="{{ s.subject }}">{{ s.subject }}</option>
+          {% endfor %}
+        </select>
+        {% endif %}
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
 
     <!-- Results Section -->
     <div class="container">
-      {% if pyq %}
+      {% if item %}
       <div class="row g-4">
-        {% for item in pyq %}
+        {% for it in item %}
         <div class="col-md-6 col-lg-4">
           <div class="card">
-            <div class="card-header">{{ item.name }}</div>
+            <div class="card-header">{{ it.sub_name }}</div>
             <div class="card-body">
               <p class="card-text">
-                Hey Here is {{item.name}} exam question paper of session
-                {{item.session}}.You can download it by clicking the button
-                below.
+                Hey Here is {{it.sub_name}} exam question paper of session
+                {{it.semester}} and of type{{it.type}}.You can download it by
+                clicking the button below.
               </p>
               <a
-                href="{% url 'downloadPyq' item.id %}"
+                href="{% url 'downloadPyq' it.id %}"
                 class="btn btn-primary w-100"
               >
                 Download
