@@ -103,13 +103,14 @@ DATABASES = {
         "NAME": "CampusSolutions",
         "ENFORCE_SCHEMA": False,
         "CLIENT": {
-            "host": "mongodb://localhost:27017",
+            "host": MONGO_URL,
+            "tls": True,  # Optional, recommended for MongoDB Atlas
         },
     },
-    "messaging": {  # <-- New database for messaging app
-        "ENGINE": "django.db.backends.sqlite3",  # Or use PostgreSQL if you prefer
-        "NAME": BASE_DIR / "messaging_db.sqlite3",  # SQLite file will be created
-    },
+    # "messaging": {  # <-- New database for messaging app
+    #     "ENGINE": "django.db.backends.sqlite3",  # Or use PostgreSQL if you prefer
+    #     "NAME": BASE_DIR / "messaging_db.sqlite3",  # SQLite file will be created
+    # },
 }
 
 DATABASE_ROUTERS = ["CampusSolutions.db_router.MessagingRouter"]
@@ -196,9 +197,3 @@ CACHES = {
 # For development: shows email in console
 
 # For production (use real credentials):
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "abhinavtiwari473@gmail.com"
-EMAIL_HOST_PASSWORD = "Anshu2003@#$"
