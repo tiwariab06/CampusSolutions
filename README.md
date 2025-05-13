@@ -1,4 +1,4 @@
-# BunkMate
+# Campus Solutions
 
 Campus Solutions
 
