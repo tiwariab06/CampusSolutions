@@ -24,8 +24,8 @@ from Home.forms import CustomPasswordResetForm
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("signup/", views.studentsignup, name="studentsignup"),
-    path("login/", views.studentlogin, name="studentlogin"),
+    path("signup/student", views.studentsignup, name="studentsignup"),
+    path("login/student", views.studentlogin, name="studentlogin"),
     path("login/dashboard/", views.studentlogin, name="studentlogindash"),
     path("logout/", views.studentlogout, name="logout"),
     path("signup/faculty/", views.facultysignup, name="facultysignup"),
@@ -45,7 +45,6 @@ urlpatterns = [
         name="filter_attendance_by_date",
     ),
     path("attendance/edit/", views.edit_attendance, name="edit_attendance"),
-
     path(
         "reset_password/",
         auth_views.PasswordResetView.as_view(
@@ -53,8 +52,24 @@ urlpatterns = [
         ),
         name="password_reset",
     ),
-
-    path("reset_password_done/", auth_views.PasswordResetDoneView.as_view(), name="password_reset_done"),
-    path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
-    path("reset_password_complete/", auth_views.PasswordResetCompleteView.as_view(), name="password_reset_complete"),
+    path(
+        "reset_password_done/",
+        auth_views.PasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
+    path(
+        "reset/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(),
+        name="password_reset_confirm",
+    ),
+    path(
+        "reset_password_complete/",
+        auth_views.PasswordResetCompleteView.as_view(),
+        name="password_reset_complete",
+    ),
+    path(
+        "profile/",
+        views.profile,
+        name="profile",
+    ),
 ]

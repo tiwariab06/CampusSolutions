@@ -5,67 +5,153 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      :root {
+        --primary: #155bc4;
+        --secondary: #2dd4bf;
+        --accent: #fcd34d;
+      }
+
       body {
-        background-color: #ffffff;
-        color: white;
+        background: linear-gradient(150deg, #f8fafc 0%, #eef2f6 100%);
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
       }
+
       nav {
-        background-color: #155bc4;
-        color: white;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        background: rgba(21, 91, 196, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
       }
+
       .navbar-brand {
-        font-weight: bold;
+        font-weight: 700;
+        background: linear-gradient(45deg, #fff, #d9e8fb);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         font-size: 1.8rem;
       }
-      .navbar-nav .nav-link {
-        color: white !important;
-        font-weight: 500;
-        transition: color 0.2s ease;
+
+      .card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        margin: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        min-height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
-      .navbar-nav .nav-link:hover {
-        color: #ffffff !important;
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
       }
-      .dropdown-menu {
-        background-color: #0d6efd;
+
+      .btn-primary {
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
         border: none;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
       }
-      .dropdown-item {
+
+      .btn-primary:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(21, 91, 196, 0.3);
+      }
+
+      .dropdown-menu {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .dropdown-item:hover {
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
         color: white !important;
       }
-      .dropdown-item:hover {
-        background-color: #ffff;
-        color: black !important;
-      }
+
       .welcome-text {
         font-weight: 600;
         margin-right: 15px;
         color: #ffffff;
       }
-      .card {
-        background-color: #ffffff;
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
+
+      .badge {
+        font-weight: 500;
+        padding: 0.5em 0.8em;
       }
-      .card:hover {
-        transform: translateY(-5px);
+
+      .gradient-text {
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      nav {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 1.8rem;
+      }
+
+      .navbar-nav .nav-link {
+        color: #155bc4 !important;
+        font-weight: 500;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: var(--secondary) !important;
+      }
+      .welcome-text {
+        font-weight: 600;
+        margin-right: 15px;
+        color: #155bc4;
+      }
+      .navbar {
+        position: sticky;
       }
     </style>
   </head>
   <body>
     {% csrf_token %}
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg py-3">
       <div class="container">
         <a class="navbar-brand" href="#">Campus Solutions</a>
         <button
@@ -73,25 +159,39 @@
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <span class="navbar-text welcome-text">
-              Hi {{ user.name }}, Welcome to Your Dashboard!
-            </span>
-            <li class="nav-item">
-              <a class="nav-link" href="/messenger/">
-                Messages {% if unread_message_count > 0 %}
-                <span class="badge bg-danger">{{ unread_message_count }}</span>
-                {% endif %}
+
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav align-items-center">
+            <li class="nav-item mx-2">
+              <span class="navbar-text welcome-text">
+                Hi {{ user.name }}, Welcome to Your Dashboard!
+              </span>
+            </li>
+
+           
+
+            {% if not request.user.registeredface %} {% if user.is_staff %}
+            {%else%}
+            <li class="nav-item mx-2">
+              <a href="{% url 'register_face' %}">
+                <button class="btn btn-sm btn-outline-primary">
+                  Register Face
+                </button>
               </a>
             </li>
-            <li class="nav-item dropdown">
+            {%endif%} {% else %}
+            <li class="nav-item mx-2">
+              <p class="mb-0 text-primary">Face Registered ✅</p>
+            </li>
+            {% endif %}
+
+            <li class="nav-item dropdown mx-2">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
@@ -108,9 +208,7 @@
               >
                 <li><a class="dropdown-item" href="/profile">Profile</a></li>
                 <li><a class="dropdown-item" href="/settings">Settings</a></li>
-                <li>
-                  <hr class="dropdown-divider" />
-                </li>
+                <li><hr class="dropdown-divider" /></li>
                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
               </ul>
             </li>
@@ -124,34 +222,36 @@
       <div class="row g-4">
         {% if user.is_staff %}
         <!-- Staff Cards -->
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Upload PYQs</h5>
-              <p class="card-text">
-                Upload previous year question papers for students to access.
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Upload PYQs</h5>
+              <p class="card-text text-muted">
+                Share previous year question papers with enhanced security
               </p>
-              <a href="/upload/Pyq" class="btn btn-primary">Upload PYQs</a>
+              <a href="/upload/Pyq" class="btn btn-primary">Upload Now</a>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Upload Notes</h5>
-              <p class="card-text">
-                Upload your notes for students to purchase.
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Upload Notes</h5>
+              <p class="card-text text-muted">
+                Curate and share premium educational content
               </p>
               <a href="/upload/Notes" class="btn btn-primary">Upload Notes</a>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Upload Assignments</h5>
-              <p class="card-text">
-                Upload assignments for students to complete and submit.
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Upload Assignments</h5>
+              <p class="card-text text-muted">
+                Create and distribute academic tasks efficiently
               </p>
               <a href="/upload/Assignments" class="btn btn-primary"
                 >Upload Assignments</a
@@ -159,91 +259,113 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Upload Results</h5>
-              <p class="card-text">Upload Results for students.</p>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Upload Results</h5>
+              <p class="card-text text-muted">
+                Publish student outcomes with secure access
+              </p>
               <a href="/upload-results/" class="btn btn-primary"
-                >Upload Result</a
+                >Upload Results</a
               >
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Mark Attendance</h5>
-              <p class="card-text">Mark attendance for your classes.</p>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Mark Attendance</h5>
+              <p class="card-text text-muted">
+                Track student presence with AI verification
+              </p>
               <a href="/mark_attendance" class="btn btn-primary"
                 >Mark Attendance</a
               >
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Manage and Edit Attendance</h5>
-              <p class="card-text">Edit attendance for your classes.</p>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Edit Attendance</h5>
+              <p class="card-text text-muted">
+                Modify attendance records with audit trail
+              </p>
               <a href="{% url 'edit_attendance' %}" class="btn btn-warning"
                 >Edit Attendance</a
               >
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">View Submitted Assignments</h5>
-              <p class="card-text">View assignments submitted by students.</p>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">View Submissions</h5>
+              <p class="card-text text-muted">
+                Review student assignments with plagiarism check
+              </p>
               <a href="/submissions" class="btn btn-primary"
-                >View Assignments</a
+                >View Submissions</a
               >
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Messenger</h5>
-              <p class="card-text">Message students in your sections.</p>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Faculty Messenger</h5>
+              <p class="card-text text-muted">
+                Communicate with students securely
+              </p>
               <a href="/messaging/students" class="btn btn-primary"
-                >Go to Messenger</a
+                >Open Messenger</a
               >
             </div>
           </div>
         </div>
+
         {% else %}
-        <!-- Student Cards (Existing Template) -->
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Sell Notes</h5>
-              <p class="card-text">
-                Share your notes and earn by selling them.
+        <!-- Student Cards -->
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Sell Notes</h5>
+              <p class="card-text text-muted">
+                Monetize your academic expertise
               </p>
               <a href="/resources/upload" class="btn btn-primary"
-                >Go to Sell Notes</a
+                >Start Selling</a
               >
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Previous Year Questions</h5>
-              <p class="card-text">Access previous years' question papers.</p>
-              <a href="{% url 'showPyq'%}" class="btn btn-primary">View PYQs</a>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">PYQ Archive</h5>
+              <p class="card-text text-muted">
+                Decade-wise papers with AI analysis
+              </p>
+              <a href="{% url 'showPyq'%}" class="btn btn-primary"
+                >Explore PYQs</a
+              >
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Download Notes</h5>
-              <p class="card-text">
-                Access Notes and resources provided by your Faculty.
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Download Notes</h5>
+              <p class="card-text text-muted">
+                Access premium faculty-curated resources
               </p>
               <a href="{% url 'showNotes'%}" class="btn btn-primary"
                 >View Notes</a
@@ -251,78 +373,83 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Buy Notes</h5>
-              <p class="card-text">
-                Purchase notes and study materials from peers.
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Buy Notes</h5>
+              <p class="card-text text-muted">
+                Access peer-reviewed study materials
               </p>
-              <a href="/resources/" class="btn btn-primary">Buy Notes</a>
+              <a href="/resources/" class="btn btn-primary">Browse Notes</a>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">View Attendance</h5>
-              <p class="card-text">
-                Check your attendance records for all subjects.
-              </p>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Attendance Tracker</h5>
+              <p class="card-text text-muted">Real-time attendance analytics</p>
               <a href="/view_attendance" class="btn btn-primary"
-                >View Attendance</a
+                >Check Attendance</a
               >
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">View Assignments</h5>
-              <p class="card-text">View and submit your assignments on time.</p>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Assignments</h5>
+              <p class="card-text text-muted">
+                Submit tasks with auto-reminders
+              </p>
               <a href="{% url 'showAssignment'%}" class="btn btn-primary"
                 >View Assignments</a
               >
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">View Results</h5>
-              <p class="card-text">
-                Access your academic performance and grades.
-              </p>
-              <a href="/results" class="btn btn-primary">View Results</a>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Results Portal</h5>
+              <p class="card-text text-muted">Detailed performance analysis</p>
+              <a href="/results" class="btn btn-primary">Check Results</a>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">ByteBanter</h5>
-              <p class="card-text">Ask the AI</p>
-              <a href="/chatbot" class="btn btn-primary">Ask Anything</a>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">ByteBanter AI</h5>
+              <p class="card-text text-muted">24/7 academic assistant</p>
+              <a href="/chatbot" class="btn btn-primary">Ask Now</a>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Messenger</h5>
-              <p class="card-text">Message your assigned faculty members.</p>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Student Messenger</h5>
+              <p class="card-text text-muted">Connect with faculty instantly</p>
               <a href="/messaging/faculties" class="btn btn-primary"
-                >Go to Messenger</a
+                >Open Chat</a
               >
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Co-Study</h5>
-              <p class="card-text">Join the Study Rooms for clearing Doubts.</p>
-              <a href="/studybuddy/home" class="btn btn-primary">Co-Study</a>
+
+        <div class="col-md-4 animate-on-scroll">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title gradient-text">Co-Study Hub</h5>
+              <p class="card-text text-muted">Collaborative learning spaces</p>
+              <a href="/studybuddy/home" class="btn btn-primary">Join Now</a>
             </div>
           </div>
         </div>
@@ -330,7 +457,24 @@
       </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Scroll Animation
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document
+        .querySelectorAll(".animate-on-scroll")
+        .forEach((el) => observer.observe(el));
+    </script>
   </body>
 </html>

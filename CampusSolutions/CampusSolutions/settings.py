@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "StudyBuddy",
     "Marketplace",
     "Results",
+    "AutoAttendance",
 ]
 
 MIDDLEWARE = [
@@ -103,8 +104,9 @@ DATABASES = {
         "NAME": "CampusSolutions",
         "ENFORCE_SCHEMA": False,
         "CLIENT": {
-            "host": MONGO_URL,
-            "tls": True,  # Optional, recommended for MongoDB Atlas
+            # "host": "mongodb://localhost:27017",
+            "host":MONGO_URL
+            # "tls": True,  # Optional, recommended for MongoDB Atlas
         },
     },
     # "messaging": {  # <-- New database for messaging app

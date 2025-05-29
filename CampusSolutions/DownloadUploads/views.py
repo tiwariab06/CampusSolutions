@@ -25,6 +25,7 @@ def showPyq(request):
         item = Pyq.objects.filter(semester=sem, session=session)
         context = {
             "item": item,
+            "isPyq": True,
         }
         return render(request, "showPyq.html", context)
 

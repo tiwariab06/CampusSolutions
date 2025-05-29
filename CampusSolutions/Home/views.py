@@ -33,7 +33,7 @@ def studentsignup(request):
         form = StudentSignup(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("/student/login")
+            return redirect("/login/student")
         else:
             errors = form.errors
             return render(request, "err.html", {"errors": errors})
@@ -63,7 +63,7 @@ def studentlogin(request):
             return render(request, "Dashboard.html")
         else:
             messages.error(request, "Invalid Username or Password")
-            return redirect("/student/login")
+            return redirect("/login/student")
     else:
         return render(request, "login.html")
 
@@ -229,6 +229,13 @@ def view_attendance(request):
     try:
         student_id = request.user.id
         subject = subjects.objects.filter()
+        # student=request.user
+        # student_section = student.section
+        # section_object = sections.objects.get(section=student_section)
+        # sec_id = section_object.id
+        # assigned_faculties = Faculties.objects.filter(section=sec_id)
+        # assigned_faculties = Faculties.objects.filter()
+        # print(assigned_faculties)
         print(len(subject))
         students_present = Attendance.objects.filter(
             status="Present", student_id=student_id
@@ -486,3 +493,7 @@ def edit_attendance(request):
             "subjects": assigned_subjects,
         },
     )
+
+
+def profile(request):
+    return render(request, "profile.html")

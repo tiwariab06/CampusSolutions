@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .profile-header {
+            height: 180px;
+        }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            bottom: 10px;
+            right: 10px;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+        .section-badge {
+            font-size: 0.9rem;
+            padding: 0.5rem 0.8rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Student Profile -->
+    <div class="container py-5" id="student-profile">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-5">
+                    <!-- Profile Header -->
+                    <div class="card-header bg-primary text-white profile-header position-relative">
+                        <div class="d-flex align-items-center h-100">
+                            <div class="position-relative me-4">
+                                <img src="https://ui-avatars.com/api/?name={{ user.name }}&background=random" 
+                                     alt="Profile" 
+                                     class="profile-img rounded-circle border border-4 border-white">
+                                <span class="position-absolute bg-success rounded-circle status-indicator border border-2 border-white"></span>
+                            </div>
+                            <div>
+                                <h2 class="card-title mb-1">{{ user.name }}</h2>
+                                <p class="card-subtitle text-white-50 mb-1">
+                                    <i class="fas fa-graduation-cap me-1"></i>{{ user.get_branch_display }} • Semester {{ user.semester }}
+                                </p>
+                                <p class="card-subtitle text-white-50">
+                                    <i class="fas fa-id-card me-1"></i>Roll No: {{ user.roll_number }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Details -->
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Personal Info -->
+                            <div class="col-md-6 mb-4">
+                                <h4 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-user-circle me-2"></i>Personal Information
+                                </h4>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-envelope me-2"></i>Email</span>
+                                        <span class="fw-bold">{{ user.email }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-user me-2"></i>Username</span>
+                                        <span class="fw-bold">{{ user.username }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-users me-2"></i>Section</span>
+                                        <span class="fw-bold">{{ user.section }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Academic Info -->
+                            <div class="col-md-6 mb-4">
+                                <h4 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-book me-2"></i>Academic Information
+                                </h4>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-university me-2"></i>Branch</span>
+                                        <span class="fw-bold">{{ user.get_branch_display }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-calendar-alt me-2"></i>Semester</span>
+                                        <span class="fw-bold">Semester {{ user.semester }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-id-badge me-2"></i>Roll Number</span>
+                                        <span class="fw-bold">{{ user.roll_number }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Assigned Faculties -->
+                        <div class="mt-4">
+                            <h4 class="border-bottom pb-2 mb-3">
+                                <i class="fas fa-chalkboard-teacher me-2"></i>Assigned Faculties
+                            </h4>
+                            <div class="row">
+                                {% for faculty in user.get_assigned_faculties %}
+                                <div class="col-md-6 col-lg-4 mb-3">
+                                    <div class="card h-100 card-hover">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://ui-avatars.com/api/?name={{ faculty.name }}&background=random" 
+                                                     alt="{{ faculty.name }}" 
+                                                     class="rounded-circle me-3" 
+                                                     style="width: 50px; height: 50px;">
+                                                <div>
+                                                    <h5 class="card-title mb-0">{{ faculty.name }}</h5>
+                                                    <p class="card-text text-muted small">
+                                                        <i class="fas fa-building me-1"></i>{{ faculty.get_department_display }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div class="col-12">
+                                    <div class="alert alert-info" role="alert">
+                                        <i class="fas fa-info-circle me-2"></i>No faculties assigned
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if user.is_staff %}
+    <!-- Faculty Profile -->
+    <div class="container py-5" id="faculty-profile">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <!-- Profile Header -->
+                    <div class="card-header bg-info text-white profile-header position-relative">
+                        <div class="d-flex align-items-center h-100">
+                            <div class="position-relative me-4">
+                                <img src="https://ui-avatars.com/api/?name={{ user.name }}&background=random" 
+                                     alt="Profile" 
+                                     class="profile-img rounded-circle border border-4 border-white">
+                                <span class="position-absolute bg-success rounded-circle status-indicator border border-2 border-white"></span>
+                            </div>
+                            <div>
+                                <h2 class="card-title mb-1">{{ user.name }}</h2>
+                                <p class="card-subtitle text-white-50 mb-1">
+                                    <i class="fas fa-building me-1"></i>{{ user.get_department_display }}
+                                </p>
+                                <p class="card-subtitle text-white-50">
+                                    <i class="fas fa-calendar me-1"></i>{{ user.get_year_display }} 
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Details -->
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Personal Info -->
+                            <div class="col-md-6 mb-4">
+                                <h4 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-user-circle me-2"></i>Personal Information
+                                </h4>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-envelope me-2"></i>Email</span>
+                                        <span class="fw-bold">{{ user.username }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-user me-2"></i>Username</span>
+                                        <span class="fw-bold">{{ user.username }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Professional Info -->
+                            <div class="col-md-6 mb-4">
+                                <h4 class="border-bottom pb-2 mb-3">
+                                    <i class="fas fa-briefcase me-2"></i>Professional Information
+                                </h4>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-building me-2"></i>Department</span>
+                                        <span class="fw-bold">{{ user.get_department_display }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted"><i class="fas fa-calendar me-2"></i>Year</span>
+                                        <span class="fw-bold">{{ user.get_year_display }} </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Assigned Sections -->
+                        <div class="mt-4">
+                            <h4 class="border-bottom pb-2 mb-3">
+                                <i class="fas fa-users me-2"></i>Assigned Sections
+                            </h4>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                {% for section in user.section.all %}
+                                <span class="badge bg-primary section-badge">
+                                    <i class="fas fa-user-friends me-1"></i>{{ section.section }}
+                                </span>
+                                {% empty %}
+                                <div class="alert alert-info w-100" role="alert">
+                                    <i class="fas fa-info-circle me-2"></i>No sections assigned
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Assigned Subjects -->
+                        <div class="mt-4">
+                            <h4 class="border-bottom pb-2 mb-3">
+                                <i class="fas fa-book-open me-2"></i>Assigned Subjects
+                            </h4>
+                            <div class="row">
+                                {% for subject in user.subjects.all %}
+                                <div class="col-md-6 col-lg-4 mb-3">
+                                    <div class="card h-100 card-hover">
+                                        <div class="card-body text-center">
+                                            <i class="fas fa-book text-primary mb-3" style="font-size: 2rem;"></i>
+                                            <h5 class="card-title">{{ subject.subject }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% empty %}
+                                <div class="col-12">
+                                    <div class="alert alert-info" role="alert">
+                                        <i class="fas fa-info-circle me-2"></i>No subjects assigned
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Show the appropriate profile based on user type
+        document.addEventListener('DOMContentLoaded', function() {
+            const isFaculty = {{ request.user.is_staff|yesno:"true,false" }};
+            const isStudent = {{ request.user.is_student|yesno:"true,false" }};
+            
+            if (isFaculty) {
+                document.getElementById('student-profile').style.display = 'none';
+                document.getElementById('faculty-profile').style.display = 'block';
+            } else if (isStudent) {
+                document.getElementById('faculty-profile').style.display = 'none';
+                document.getElementById('student-profile').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

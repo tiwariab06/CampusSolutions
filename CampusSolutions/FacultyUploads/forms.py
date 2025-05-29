@@ -70,11 +70,11 @@ class assignmentForm(forms.ModelForm):
 
         if request and request.user.is_authenticated:
             # Ensure the user is authenticated before using their info
-            print("hi")
+            # print("hi")
             user = request.user
             assigned_sections = user.section.all()  # Sections assigned to the user
             assigned_subjects = user.subjects.all()  # Subjects assigned to the user
-            print("ho")
+            # print("ho")
             self.fields["section"] = forms.ModelChoiceField(
                 queryset=assigned_sections,
                 widget=forms.Select(attrs={"class": "col-md-6"}),
