@@ -29196,3 +29196,5 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'user-profile' with arguments
 [2025-05-27 18:24:24,867] INFO: Marked attendance for 2101920100013
 [2025-05-27 18:24:29,433] INFO: Marked attendance for 2101920100008
 [2025-05-29 18:34:34,026] WARNING: Not Found: /favicon.ico
+[2025-05-29 18:44:02,651] INFO: C:\Users\tiwar\OneDrive\Desktop\CampusSolutionsDjango\CampusSolutions\CampusSolutions\settings.py changed, reloading.
+[2025-05-29 18:46:57,729] INFO: C:\Users\tiwar\OneDrive\Desktop\CampusSolutionsDjango\CampusSolutions\CampusSolutions\settings.py changed, reloading.
