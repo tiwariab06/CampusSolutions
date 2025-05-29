@@ -29195,3 +29195,4 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'user-profile' with arguments
 [2025-05-27 18:23:47,453] INFO: Marked attendance for 2101920100008
 [2025-05-27 18:24:24,867] INFO: Marked attendance for 2101920100013
 [2025-05-27 18:24:29,433] INFO: Marked attendance for 2101920100008
+[2025-05-29 18:34:34,026] WARNING: Not Found: /favicon.ico
